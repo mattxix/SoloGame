@@ -6,18 +6,15 @@ var timer = setInterval(main, fps)
 var startTime = Date.now(); 
 var elapsedTime = 0; 
 
-
 function updateTimer() {
     // Calculate the elapsed time in seconds
     elapsedTime = (Date.now() - startTime) / 1000;
-    //Updates Clock
-    var roundedTime = Math.round(elapsedTime * 100) / 100;
      // Display clock
      ctx.font = "20px Arial";
      ctx.fillStyle = "black";
      ctx.textAlign = "left";
      ctx.textBaseline = "middle";
-     ctx.fillText("Time: " + roundedTime, 10, 20);
+     ctx.fillText("Time: " + elapsedTime, 10, 20);
 }
 function main()
 {
@@ -37,44 +34,19 @@ var wall = [];
 var lazerAttack = new GameObject();
 var lazerAttack = [];
 var health = 100;
-//Allows me to Change when the lazer does Damage
-var isDamageActive = false;
 
-//Allows to call the lazer on
-function startLaserAttack() {
-    laserAttack[0].isActive = true;
-}
-//Enable damage during a specific phase
-function activateDamage() {
-    isDamageActive = true;
-}
 
-//Disable damage after the phase ends
-function deactivateDamage() {
-    isDamageActive = false;
-}
 
 
 
 function init()
 {
     state = menu
-    //Reset Clock
-    startTime = Date.now(); 
-    elapsedTime = 0;
-    //Reset Health
-    health = 100;
 
-    avatar.color = `#8caba1`; 
+    avatar.color = `#8caba1`;
     //reset the avatar to the center 
-    avatar.vx = 0;
-    avatar.vy = 0;
     avatar.x = c.width / 2 ; 
     avatar.y = c.height / 2 + avatar.h / 2 ;
-    //buttonSize
-    button.w = 100;
-    button.h = 50;
-    
 
     level.x = 0; 
     level.y = 0;
@@ -83,7 +55,7 @@ function init()
     wall[0]=new GameObject();
     wall[0].h =  10;
     wall[0].w = c.width - 400;
-    wall[0].color = `#000000`;
+    wall[0].color = `#000000`
     wall[0].x = c.width/2;
     wall[0].y = c.height - 100;
     wall[0].world = level;
@@ -119,7 +91,7 @@ function init()
     lazerAttack[0].color = `#000000`
     lazerAttack[0].x = c.width/2;
     lazerAttack[0].y = c.height - 150;
-    lazerAttack[0].isActive = false;
+    lazerAttack[0].isActive = true;
     lazerAttack[0].world = level;
 
     lazerAttack[1]=new GameObject();
@@ -128,7 +100,7 @@ function init()
     lazerAttack[1].color = `#000000`
     lazerAttack[1].x = c.width/2;
     lazerAttack[1].y = c.height - 400;
-    lazerAttack[1].isActive = false;
+    lazerAttack[1].isActive = true;
     lazerAttack[1].world = level;
 
 
@@ -160,32 +132,23 @@ function lose()
     ctx.clearRect(0,0,c.width,c.height);
     ctx.font = "20px Arial";
      ctx.fillStyle = "black";
-     ctx.textAlign = "center";
-     ctx.textBaseline = "center";
-     ctx.fillText("Time Survived: " + roundedTime, c.width/2, c.height/2 - 50);
-     ctx.fillText("You Died", c.width/2 , c.height/2 -100); 
+     ctx.textAlign = "left";
+     ctx.textBaseline = "middle";
+     ctx.fillText("Time: " + elapsedTime, c.width/2, c.height/2 + 100);
      //try again button
-     if(clicked(button))
+     button.render()
+     if(clicked(tryAgainButton))
         {
             state = game;
             init();
         }
-            button.render();
+            tryAgainButton.render()
 }
 
 function game()
 {
-
-    //Displays Health
-    var roundedHealth = Math.round(health);
-    ctx.font = "20px Arial";
-     ctx.fillStyle = "black";
-     ctx.textAlign = "middle";
-     ctx.textBaseline = "middle";
-     ctx.fillText("Health: " + roundedHealth, c.width/2 -50 , c.height/2 + 250);
     
     updateTimer();
-    //renders off screen
     sword.x = 10000;
     if(a == true)
     {
@@ -235,28 +198,12 @@ function game()
     avatar.vy *= .85;
     avatar.move();
 
-    /*
-    for (let i = 0; i < lazerAttack.length; i++) {
-        if (isDamageActive) { 
-            if (lazerAttack[i].isOverPoint(avatar.bottom()) ||
-                lazerAttack[i].isOverPoint(avatar.top()) ||
-                lazerAttack[i].isOverPoint(avatar.left()) ||
-                lazerAttack[i].isOverPoint(avatar.right())) {
-                health -= 1;
-            }
-        }
-    }
-    */
-    if (laserAttack[0].isActive) {
-        laserAttack[0].render(); // Draw the laser
-        if (laserAttack[0].isOverPoint(avatar)) {
-            health -= 1; // Damage the player if they touch the laser
-        }
-    }
+    
+
 
     //used to move the level. 
     var offset = {x:avatar.vx, y:avatar.vy}
-    //is avatar touching wall
+
     for(let i=0; i<wall.length; i++)
     {
         while(wall[i].isOverPoint(avatar.bottom()))
@@ -285,20 +232,23 @@ function game()
         }
       
     }
+    //Did avatar get hit by attack
+    for(let i=0; i<lazerAttack.length; i++)
+        {
+            if (lazerAttack[i].isOverPoint(avatar.bottom()) || 
+            lazerAttack[i].isOverPoint(avatar.top()) || 
+            lazerAttack[i].isOverPoint(avatar.left()) || 
+            lazerAttack[i].isOverPoint(avatar.right())) {
+            health -= .5;  // Deduct health once if any side overlaps
+            console.log(health); 
+        }
+        }
     
-    // MAIN ATTACK SEQUENCE
-    if(elapsedTime >= 3 && elapsedTime <= 6){
-        lazerAttack[0].isActive = true;
-        lazerAttack[1].isActive = true;
-         
-    }
-
     
         if(health <= 0 )
             {
-                roundedTime = Math.round(elapsedTime * 100) / 100;
                 state = lose;  
-
+                health = 100;      
             }
         
 
@@ -327,20 +277,12 @@ function game()
    {
     wall[i].render();
    }
-    
-   /*for(let i=0;i<lazerAttack.length; i++)
+   for(let i=0;i<lazerAttack.length; i++)
    {
     lazerAttack[i].render();
    }
-   */
-   for(let i=0;i<lazerAttack.length; i++){
-        if (laserAttack[i].isActive) {
-        // Perform laser's actions 
-        laserAttack[i].render();
-    }
-   }
-   
-      sword.render();
+
+    sword.render();
     avatar.render();
     
 }
