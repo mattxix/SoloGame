@@ -221,7 +221,7 @@ function game()
         {
             while(lazerAttack[i].isOverPoint(avatar.bottom()))
             {
-                health ++ -1;
+                health -= 1;
                 
                 console.log(health);
             }
