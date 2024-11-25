@@ -19,12 +19,13 @@ function updateTimer() {
 function main()
 {
     ctx.clearRect(0,0,c.width,c.height); 
-    state()
+    state();
 }
 
 //setup
 var state;
 var button = new GameObject();
+var tryAgainButton = new GameObject();
 var avatar = new GameObject();
 var wall = new GameObject();
 var level = new GameObject();
@@ -43,8 +44,9 @@ function init()
     state = menu
 
     avatar.color = `#8caba1`;
-
-    
+    //reset the avatar to the center 
+    avatar.x = c.width / 2 ; 
+    avatar.y = c.height / 2 + avatar.h / 2 ;
 
     level.x = 0; 
     level.y = 0;
@@ -126,12 +128,26 @@ function win()
 }
 function lose()
 {
-
+    //display lose screen
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.font = "20px Arial";
+     ctx.fillStyle = "black";
+     ctx.textAlign = "left";
+     ctx.textBaseline = "middle";
+     ctx.fillText("Time: " + elapsedTime, c.width/2, c.height/2 + 100);
+     //try again button
+     button.render()
+     if(clicked(tryAgainButton))
+        {
+            state = game;
+            init();
+        }
+            tryAgainButton.render()
 }
 
 function game()
 {
-   
+    
     updateTimer();
     sword.x = 10000;
     if(a == true)
@@ -219,35 +235,22 @@ function game()
     //Did avatar get hit by attack
     for(let i=0; i<lazerAttack.length; i++)
         {
-            while(lazerAttack[i].isOverPoint(avatar.bottom()))
-            {
-                health -= 1;
-                
-                console.log(health);
-            }
-            while(lazerAttack[i].isOverPoint(avatar.top()))
-            {
-                health ++ -1;
-                
-                console.log(health);
-            }
-            while(lazerAttack[i].isOverPoint(avatar.left()))
-            {
-                health ++ -1;
-                
-                console.log(health);
-            }
-            while(lazerAttack[i].isOverPoint(avatar.right()))
-            {
-                health ++ -1;
-                
-                console.log(health);
-            }
-          
+            if (lazerAttack[i].isOverPoint(avatar.bottom()) || 
+            lazerAttack[i].isOverPoint(avatar.top()) || 
+            lazerAttack[i].isOverPoint(avatar.left()) || 
+            lazerAttack[i].isOverPoint(avatar.right())) {
+            health -= .5;  // Deduct health once if any side overlaps
+            console.log(health); 
+        }
         }
     
     
-   
+        if(health <= 0 )
+            {
+                state = lose;  
+                health = 100;      
+            }
+        
 
     /*-------Level movement threshold----*/
     //if(avatar.x > 500 || avatar.x < 300)
