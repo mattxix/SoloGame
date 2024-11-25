@@ -222,25 +222,25 @@ function game()
             while(lazerAttack[i].isOverPoint(avatar.bottom()))
             {
                 health ++ -1;
-                pause(2);
+                
                 console.log(health);
             }
             while(lazerAttack[i].isOverPoint(avatar.top()))
             {
                 health ++ -1;
-                pause(2);
+                
                 console.log(health);
             }
             while(lazerAttack[i].isOverPoint(avatar.left()))
             {
                 health ++ -1;
-                pause(2);
+                
                 console.log(health);
             }
             while(lazerAttack[i].isOverPoint(avatar.right()))
             {
                 health ++ -1;
-                pause(2);
+                
                 console.log(health);
             }
           
