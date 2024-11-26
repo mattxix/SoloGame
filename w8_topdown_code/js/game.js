@@ -8,9 +8,9 @@ var elapsedTime = 0;
 
 
 function updateTimer() {
-    // Calculate the elapsed time in seconds
+    // Calculate the time in seconds
     elapsedTime = (Date.now() - startTime) / 1000;
-    //Updates Clock
+    //Round the time
     var roundedTime = Math.round(elapsedTime * 100) / 100;
      // Display clock
      ctx.font = "20px Arial";
@@ -19,6 +19,7 @@ function updateTimer() {
      ctx.textBaseline = "middle";
      ctx.fillText("Time: " + roundedTime, 10, 20);
 }
+
 function main()
 {
     ctx.clearRect(0,0,c.width,c.height); 
@@ -32,7 +33,7 @@ var tryAgainButton = new GameObject();
 var avatar = new GameObject();
 var wall = new GameObject();
 var level = new GameObject();
-var sword = new GameObject();
+var shield = new GameObject();
 var wall = [];
 var lazerAttack = new GameObject();
 var lazerAttack = [];
@@ -41,8 +42,12 @@ var health = 100;
 var isDamageActive = false;
 
 //Allows to call the lazer on
-function startLaserAttack() {
-    laserAttack[0].isActive = true;
+function startLazerAttack() {
+    lazerAttack[0].isActive = true;
+}
+//Allows to call the lazer off
+function endLazerAttack() {
+    lazerAttack[0].isActive = false;
 }
 //Enable damage during a specific phase
 function activateDamage() {
@@ -53,6 +58,37 @@ function activateDamage() {
 function deactivateDamage() {
     isDamageActive = false;
 }
+//Lazer animation
+let lazerFrames = [];
+let currentFrame = 0;
+let frameDelay = 100; // Delay in milliseconds between frames
+let lastFrameTime = 0;
+
+//Preload the frames
+for (let i = 0; i < 5; i++) { // Assuming 5 frames
+    let img = new Image();
+    img.src = `images/lazerFrames/frame${i}.png`;
+    lazerFrames.push(img);
+}
+
+function renderlazerAttack(lazer, timestamp) {
+    //Check if it's time to advance to the next frame
+    if (timestamp - lastFrameTime > frameDelay) {
+        currentFrame = (currentFrame + 1) % lazerFrames.length; //Loop through frames
+        lastFrameTime = timestamp;
+    }
+
+    //Draw the current frame of the lazer
+    ctx.drawImage(
+        lazerFrames[currentFrame],
+        lazer.x,
+        lazer.y,
+        lazer.w,
+        lazer.h
+    );
+}
+
+
 
 
 
@@ -66,12 +102,12 @@ function init()
     health = 100;
 
     avatar.color = `#8caba1`; 
-    //reset the avatar to the center 
+    //Reset the avatar to the center 
     avatar.vx = 0;
     avatar.vy = 0;
     avatar.x = c.width / 2 ; 
     avatar.y = c.height / 2 + avatar.h / 2 ;
-    //buttonSize
+    //ButtonSize
     button.w = 100;
     button.h = 50;
     
@@ -133,7 +169,7 @@ function init()
 
 
 
-    sword.color = `#000000`;
+    shield.color = `#000000`;
 }
 
 
@@ -146,6 +182,9 @@ function menu()
     if(clicked(button))
     {
         state = game;
+        //Reset Clock
+        startTime = Date.now(); 
+        elapsedTime = 0;
     }
     button.render()
 }
@@ -173,7 +212,7 @@ function lose()
             button.render();
 }
 
-function game()
+function game(timestamp)
 {
 
     //Displays Health
@@ -186,7 +225,8 @@ function game()
     
     updateTimer();
     //renders off screen
-    sword.x = 10000;
+    shield.x = 10000;
+    //Movement 
     if(a == true)
     {
         avatar.vx += -2;
@@ -203,33 +243,34 @@ function game()
     {
         avatar.vy += 2;
     }
+    //Shield controls
     if(up == true)
     {
-        sword.x = avatar.top().x;
-        sword.y = avatar.top().y - 20;
-        sword.w = 50;
-        sword.h = 45;
+        shield.x = avatar.top().x;
+        shield.y = avatar.top().y - 20;
+        shield.w = 50;
+        shield.h = 45;
     }
     if(down == true)
     {
-        sword.x = avatar.bottom().x;
-        sword.y = avatar.bottom().y + 20;
-        sword.w = 50;
-        sword.h = 45;
+        shield.x = avatar.bottom().x;
+        shield.y = avatar.bottom().y + 20;
+        shield.w = 50;
+        shield.h = 45;
     }
     if(left == true)
     {
-        sword.x = avatar.left().x - 20;
-        sword.y = avatar.left().y;
-        sword.h = 50;
-        sword.w = 45;
+        shield.x = avatar.left().x - 20;
+        shield.y = avatar.left().y;
+        shield.h = 50;
+        shield.w = 45;
     }
     if(right == true)
     {
-        sword.x = avatar.right().x + 20;
-        sword.y = avatar.right().y;
-        sword.h = 50;
-        sword.w = 45;
+        shield.x = avatar.right().x + 20;
+        shield.y = avatar.right().y;
+        shield.h = 50;
+        shield.w = 45;
     }
     avatar.vx *= .85;
     avatar.vy *= .85;
@@ -247,12 +288,8 @@ function game()
         }
     }
     */
-    if (laserAttack[0].isActive) {
-        laserAttack[0].render(); // Draw the laser
-        if (laserAttack[0].isOverPoint(avatar)) {
-            health -= 1; // Damage the player if they touch the laser
-        }
-    }
+   
+    
 
     //used to move the level. 
     var offset = {x:avatar.vx, y:avatar.vy}
@@ -287,12 +324,25 @@ function game()
     }
     
     // MAIN ATTACK SEQUENCE
-    if(elapsedTime >= 3 && elapsedTime <= 6){
-        lazerAttack[0].isActive = true;
-        lazerAttack[1].isActive = true;
-         
+    if(elapsedTime>=1.5 && elapsedTime < 3){
+        deactivateDamage();
+        lazerAttack[0].render();
     }
-
+    if (elapsedTime >= 3 && elapsedTime <= 5) {
+        activateDamage();
+        //renderLazerAttack(lazerAttack[0], timestamp); 
+        lazerAttack[0].render();
+    
+        // Check for collision
+        if (lazerAttack[0].isOverPoint(avatar)) {
+            
+            health -= .5; // Damage the player if they touch the lazer
+        }
+    } 
+    else{
+        deactivateDamage();
+    }
+    //requestAnimationFrame(game);
     
         if(health <= 0 )
             {
@@ -300,6 +350,7 @@ function game()
                 state = lose;  
 
             }
+    
         
 
     /*-------Level movement threshold----*/
@@ -334,13 +385,13 @@ function game()
    }
    */
    for(let i=0;i<lazerAttack.length; i++){
-        if (laserAttack[i].isActive) {
-        // Perform laser's actions 
-        laserAttack[i].render();
+        if (lazerAttack[i].isActive == true) {
+        // Perform lazer's actions 
+        lazerAttack[i].render();
     }
    }
    
-      sword.render();
+      shield.render();
     avatar.render();
     
 }
