@@ -12,12 +12,22 @@ function updateTimer() {
     elapsedTime = (Date.now() - startTime) / 1000;
     //Round the time
     var roundedTime = Math.round(elapsedTime * 100) / 100;
+    //var milliseconds = roundedTime%1000;
+    var seconds = Math.floor(elapsedTime % 60);
+    var minutes = Math.floor(elapsedTime / 60);
      // Display clock
      ctx.font = "20px Arial";
      ctx.fillStyle = "black";
      ctx.textAlign = "left";
      ctx.textBaseline = "middle";
-     ctx.fillText("Time: " + roundedTime, 10, 20);
+     //ctx.fillText("Time: " + minutes + "Seconds: " + seconds, 10, 20);
+     if(roundedTime<10){
+        ctx.fillText(`Time: ${minutes}:0${roundedTime}`, 10, 20);
+     }else{
+        ctx.fillText(`Time: ${minutes}:${roundedTime}`, 10, 20);
+     }
+    
+    
 }
 
 function main()
@@ -38,6 +48,9 @@ var wall = [];
 var lazerAttack = new GameObject();
 var lazerAttack = [];
 var health = 100;
+var backdrop = new GameObject(); //Display the Game Backdrop Animation
+
+
 //Allows me to Change when the lazer does Damage
 var isDamageActive = false;
 
@@ -111,14 +124,23 @@ function init()
     button.w = 100;
     button.h = 50;
     
-
+    //Level Size
     level.x = 0; 
     level.y = 0;
+
+    //Define Backdrop
+    backdrop.w = c.width;
+    backdrop.h = c.height; 
+    backdrop.x = c.width/2;
+    backdrop.y = c.height/2;
+    backdrop.color = `grey`
+    backdrop.world = level;
+
 
     //top Wall
     wall[0]=new GameObject();
     wall[0].h =  10;
-    wall[0].w = c.width - 400;
+    wall[0].w = c.width - 600;
     wall[0].color = `#000000`;
     wall[0].x = c.width/2;
     wall[0].y = c.height - 100;
@@ -126,32 +148,32 @@ function init()
     //bottom wall
     wall[1]=new GameObject();
     wall[1].h = 10;
-    wall[1].w = c.width - 400;
-    wall[1].color = `#000000`
+    wall[1].w = c.width - 600;
+    wall[1].color = `#000000`;
     wall[1].x = c.width/2;
-    wall[1].y = c.height - 450 
-    wall[1].world = level
+    wall[1].y = c.height - 450 ;
+    wall[1].world = level;
     //left wall
-    wall[2]=new GameObject();
-    wall[2].h = 357;
-    wall[2].w = 10;
-    wall[2].color = `#000000`
-    wall[2].x = 200;
-    wall[2].y = c.height/2 + 34.5
-    wall[2].world = level
+    wall[2] = new GameObject();
+    wall[2].h = 360; 
+    wall[2].w = 10; 
+    wall[2].color = `#000000`;
+    wall[2].x = 300; 
+    wall[2].y = c.height / 2 + 34.5; 
+    wall[2].world = level;
     //right wall
-    wall[3]=new GameObject();
-    wall[3].h = 357;
-    wall[3].w = 10;
-    wall[3].color = `#000000`
-    wall[3].x = 900;
-    wall[3].y = c.height/2 + 34.5
-    wall[3].world = level
+    wall[3] = new GameObject();
+    wall[3].h = 360; 
+    wall[3].w = 10; 
+    wall[3].color = `#000000`;
+    wall[3].x = 800; 
+    wall[3].y = c.height / 2 + 34.5; 
+    wall[3].world = level;
 
     //All lazer attacks
     lazerAttack[0]=new GameObject();
     lazerAttack[0].h =  50;
-    lazerAttack[0].w = c.width - 400;
+    lazerAttack[0].w = c.width - 600;
     lazerAttack[0].color = `#000000`
     lazerAttack[0].x = c.width/2;
     lazerAttack[0].y = c.height - 150;
@@ -160,12 +182,23 @@ function init()
 
     lazerAttack[1]=new GameObject();
     lazerAttack[1].h =  50;
-    lazerAttack[1].w = c.width - 400;
+    lazerAttack[1].w = c.width - 600;
     lazerAttack[1].color = `#000000`
     lazerAttack[1].x = c.width/2;
     lazerAttack[1].y = c.height - 400;
     lazerAttack[1].isActive = false;
     lazerAttack[1].world = level;
+
+    lazerAttack[2]=new GameObject();
+    lazerAttack[2].h =  80;
+    lazerAttack[2].w = c.width - 600;
+    lazerAttack[2].color = `#000000`
+    lazerAttack[2].x = c.width/2;
+    lazerAttack[2].y = c.height - 275;
+    lazerAttack[2].isActive = false;
+    lazerAttack[2].world = level;
+
+
 
 
 
@@ -214,7 +247,7 @@ function lose()
 
 function game(timestamp)
 {
-
+    backdrop.render();
     //Displays Health
     var roundedHealth = Math.round(health);
     ctx.font = "20px Arial";
@@ -324,24 +357,41 @@ function game(timestamp)
     }
     
     // MAIN ATTACK SEQUENCE
+    /*
     if(elapsedTime>=1.5 && elapsedTime < 3){
         deactivateDamage();
         lazerAttack[0].render();
     }
-    if (elapsedTime >= 3 && elapsedTime <= 5) {
-        activateDamage();
-        //renderLazerAttack(lazerAttack[0], timestamp); 
-        lazerAttack[0].render();
+    */
     
+    if (elapsedTime >= 1 && elapsedTime <= 2.5) {
+        lazerAttack[2].render();
+        
         // Check for collision
-        if (lazerAttack[0].isOverPoint(avatar)) {
+        if (lazerAttack[2].overlaps(avatar)) {
             
             health -= .5; // Damage the player if they touch the lazer
         }
     } 
-    else{
-        deactivateDamage();
-    }
+    if (elapsedTime >= 3 && elapsedTime <= 5) {
+        lazerAttack[0].render();
+    
+        // Check for collision
+        if (lazerAttack[0].overlaps(avatar)) {
+            
+            health -= .5; // Damage the player if they touch the lazer
+        }
+    } 
+    if (elapsedTime >= 3 && elapsedTime <= 5) {
+        lazerAttack[1].render();
+    
+        // Check for collision
+        if (lazerAttack[1].overlaps(avatar)) {
+            
+            health -= .5; // Damage the player if they touch the lazer
+        }
+    } 
+    
     //requestAnimationFrame(game);
     
         if(health <= 0 )
@@ -373,7 +423,7 @@ function game(timestamp)
         avatar.y += dy*.15; 
     ----------------------------*/
     
-    
+   
    for(let i=0;i<wall.length; i++)
    {
     wall[i].render();
@@ -393,6 +443,7 @@ function game(timestamp)
    
       shield.render();
     avatar.render();
+    
     
 }
 
