@@ -39,7 +39,7 @@ function main()
 //setup
 var state;
 var button = new GameObject();
-var tryAgainButton = new GameObject();
+var playAgainButton = new GameObject();
 var avatar = new GameObject();
 var wall = new GameObject();
 var level = new GameObject();
@@ -124,6 +124,9 @@ function init()
     avatar.x = c.width / 2 ; 
     avatar.y = c.height / 2 + avatar.h / 2 ;
     //ButtonSize
+    button.w = 100;
+    button.h = 50;
+    //play again ButtonSize
     button.w = 100;
     button.h = 50;
     
@@ -471,7 +474,21 @@ function menu()
 
 function win()
 {
-
+    //Display Win Screen
+    ctx.clearRect(0,0,c.width,c.height);
+    ctx.font = "20px Arial";
+     ctx.fillStyle = "black";
+     ctx.textAlign = "center";
+     ctx.textBaseline = "center";
+     ctx.fillText("You Survived!", c.width/2, c.height/2 - 50);
+     ctx.fillText("That was a close one!", c.width/2 , c.height/2 -100); 
+     //try again button
+     if(clicked(button))
+        {
+            state = game;
+            init();
+        }
+            button.render();
 }
 function lose()
 {
@@ -509,19 +526,19 @@ function game(timestamp)
     //Movement 
     if(a == true)
     {
-        avatar.vx += -2;
+        avatar.vx += -7;
     }
     if(d == true)
     {
-        avatar.vx += 2;
+        avatar.vx += 7;
     }
     if(w == true)
     {
-        avatar.vy += -2;
+        avatar.vy += -7;
     }
     if(s == true)
     {
-        avatar.vy += 2;
+        avatar.vy += 7;
     }
     //Shield controls
     if(up == true)
@@ -552,8 +569,8 @@ function game(timestamp)
         shield.h = 50;
         shield.w = 45;
     }
-    avatar.vx *= .89;
-    avatar.vy *= .89;
+    avatar.vx *= .6;
+    avatar.vy *= .6;
     avatar.move();
 
     /*
@@ -621,7 +638,7 @@ function game(timestamp)
         // Check for collision
         if (lazerAttack[2].overlaps(avatar)) {
             
-            health -= .5; // Damage the player if they touch the lazer
+            health -=3 // Damage the player if they touch the lazer
         }
     } 
 
@@ -637,7 +654,7 @@ function game(timestamp)
         // Check for collision
         if (lazerAttack[0].overlaps(avatar)) {
             
-            health -= .5; // Damage the player if they touch the lazer
+            health -=3 // Damage the player if they touch the lazer
         }
     } 
     if (elapsedTime >= 3.75 && elapsedTime <= 4.75) {
@@ -646,7 +663,7 @@ function game(timestamp)
         // Check for collision
         if (lazerAttack[1].overlaps(avatar)) {
             
-            health -= .5; // Damage the player if they touch the lazer
+            health -=3 // Damage the player if they touch the lazer
         }
     } 
     //Large Left
@@ -655,7 +672,7 @@ function game(timestamp)
         if (elapsedTime >= 6 && elapsedTime <= 7.5) {
             lazerAttack[2].render();
             if (lazerAttack[2].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         } 
     } 
@@ -665,7 +682,7 @@ function game(timestamp)
         if(elapsedTime >= 5.75 && elapsedTime <= 6.75){
             lazerAttack[3].render();
             if (lazerAttack[3].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -674,7 +691,7 @@ function game(timestamp)
         if(elapsedTime >= 6 && elapsedTime <= 7){
             lazerAttack[4].render();
             if (lazerAttack[4].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -683,7 +700,7 @@ function game(timestamp)
         if(elapsedTime >= 6.25 && elapsedTime <= 7.25){
             lazerAttack[5].render();
             if (lazerAttack[5].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -692,7 +709,7 @@ function game(timestamp)
         if(elapsedTime >= 6.5 && elapsedTime <= 7.75){
             lazerAttack[6].render();
             if (lazerAttack[6].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -703,7 +720,7 @@ function game(timestamp)
             lazerAttack[1].render();
             lazerAttack[0].render();
             if (lazerAttack[1].overlaps(avatar) || lazerAttack[0].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -715,7 +732,7 @@ function game(timestamp)
             lazerAttack[8].render();
             lazerAttack[2].render();
             if (lazerAttack[8].overlaps(avatar) || lazerAttack[2].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -732,7 +749,7 @@ function game(timestamp)
             lazerAttack[11].render();
             lazerAttack[12].render();
             if (lazerAttack[9].overlaps(avatar) || lazerAttack[10].overlaps(avatar) || lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) ) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -744,7 +761,7 @@ function game(timestamp)
             lazerAttack[8].render();
             lazerAttack[2].render();
             if (lazerAttack[8].overlaps(avatar) || lazerAttack[2].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -761,7 +778,7 @@ function game(timestamp)
             lazerAttack[11].render();
             lazerAttack[12].render();
             if (lazerAttack[9].overlaps(avatar) || lazerAttack[10].overlaps(avatar) || lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) ) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -772,7 +789,7 @@ function game(timestamp)
             lazerAttack[2].render();
             
             if (lazerAttack[2].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -784,7 +801,7 @@ function game(timestamp)
             lazerAttack[11].render();
             
             if (lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     } 
@@ -799,7 +816,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -815,7 +832,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -831,7 +848,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -847,7 +864,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -863,7 +880,7 @@ function game(timestamp)
             lazerAttack[5].render();
             lazerAttack[7].render();
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -879,7 +896,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -895,7 +912,7 @@ function game(timestamp)
             lazerAttack[5].render();
             lazerAttack[6].render();
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -911,7 +928,7 @@ function game(timestamp)
             lazerAttack[12].render();
             lazerAttack[5].render();
             if (lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) || lazerAttack[5].overlaps(avatar) ) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -930,7 +947,7 @@ function game(timestamp)
             lazerAttack[6].render();
             lazerAttack[7].render();
             if (lazerAttack[2].overlaps(avatar) || lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar)|| lazerAttack[7].overlaps(avatar) ) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -942,7 +959,7 @@ function game(timestamp)
             lazerAttack[4].render();
             lazerAttack[6].render();
             if (lazerAttack[6].overlaps(avatar) || lazerAttack[4].overlaps(avatar) ) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
@@ -952,11 +969,13 @@ function game(timestamp)
         if(elapsedTime >= 33.5 && elapsedTime <= 35){
             lazerAttack[8].render();
             if (lazerAttack[8].overlaps(avatar)) {
-                health -= .5; 
+                health -=3 
             }
         }
     }
-
+    if(elapsedTime >= 35.1){
+        state = win;
+    }
 
     //requestAnimationFrame(game);
     
