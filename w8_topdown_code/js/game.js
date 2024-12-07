@@ -5,6 +5,7 @@ var fps = 1000/60
 var timer = setInterval(main, fps)
 var startTime = Date.now(); 
 var elapsedTime = 0; 
+ctx.imageSmoothingEnabled = false;
 
 
 function updateTimer() {
@@ -53,6 +54,39 @@ var lazerIndicator = new GameObject();
 var lazerIndicator = [];
 var tinyLazerIndicator = new GameObject();
 var tinyLazerIndicator = [];
+var avatarImage = new Image();
+avatarImage.src = 'images/FireSprite.png';
+avatar.image = avatarImage;
+avatar.render = function () {
+     // Calculate the aspect ratio of the image
+     let scaleX = this.w / this.image.width;
+     let scaleY = this.h / this.image.height;
+
+     // Choose the smaller scaling factor to maintain aspect ratio
+     let scale = Math.min(scaleX, scaleY);
+
+     // Calculate the new image dimensions
+     let scaledWidth = this.image.width * scale;
+     let scaledHeight = this.image.height * scale;
+
+     // Calculate the offsets to center the image
+     let offsetX = (this.w - scaledWidth) - 17.5;
+     let offsetY = (this.h - scaledHeight) - 30;
+
+     // Draw the scaled and centered image
+     ctx.drawImage(
+         this.image,
+         this.x + offsetX,
+         this.y + offsetY,
+         scaledWidth,
+         scaledHeight
+     )
+    } 
+
+
+
+
+
 
 //Allows me to Change when the lazer does Damage
 var isDamageActive = false;
@@ -120,15 +154,17 @@ function init()
     avatar.color = `#8caba1`; 
     //Reset the avatar to the center 
     avatar.vx = 0;
-    avatar.vy = 0;
+    avatar.vx = 0;
+    avatar.w = 50;
+    avatar.h = 50;
     avatar.x = c.width / 2 ; 
     avatar.y = c.height / 2 + avatar.h / 2 ;
     //ButtonSize
     button.w = 100;
     button.h = 50;
     //play again ButtonSize
-    button.w = 100;
-    button.h = 50;
+    playAgainButton.w = 100;
+    playAgainButton.h = 50;
     
     //Level Size
     level.x = 0; 
@@ -186,7 +222,7 @@ function init()
     lazerAttack[0].y = c.height - 150;
     lazerAttack[0].isActive = false;
     lazerAttack[0].world = level;
-        //small lazer Top
+        // Small lazer Top
     lazerAttack[1]=new GameObject();
     lazerAttack[1].h =  50;
     lazerAttack[1].w = c.width - 600;
@@ -483,12 +519,12 @@ function win()
      ctx.fillText("You Survived!", c.width/2, c.height/2 - 50);
      ctx.fillText("That was a close one!", c.width/2 , c.height/2 -100); 
      //try again button
-     if(clicked(button))
+     if(clicked(playAgainButton))
         {
             state = game;
             init();
         }
-            button.render();
+            playAgainButton.render();
 }
 function lose()
 {
@@ -501,16 +537,17 @@ function lose()
      ctx.fillText("Time Survived: " + roundedTime, c.width/2, c.height/2 - 50);
      ctx.fillText("You Died", c.width/2 , c.height/2 -100); 
      //try again button
-     if(clicked(button))
+     if(clicked(playAgainButton))
         {
             state = game;
             init();
         }
-            button.render();
+            playAgainButton.render();
 }
 
 function game(timestamp)
 {
+    
     backdrop.render();
     //Displays Health
     var roundedHealth = Math.round(health);
@@ -540,38 +577,26 @@ function game(timestamp)
     {
         avatar.vy += 7;
     }
-    //Shield controls
     if(up == true)
     {
-        shield.x = avatar.top().x;
-        shield.y = avatar.top().y - 20;
-        shield.w = 50;
-        shield.h = 45;
+        avatar.vy += -7;
     }
     if(down == true)
     {
-        shield.x = avatar.bottom().x;
-        shield.y = avatar.bottom().y + 20;
-        shield.w = 50;
-        shield.h = 45;
+        avatar.vy += 7;
     }
     if(left == true)
     {
-        shield.x = avatar.left().x - 20;
-        shield.y = avatar.left().y;
-        shield.h = 50;
-        shield.w = 45;
+        avatar.vx += -7;
     }
     if(right == true)
     {
-        shield.x = avatar.right().x + 20;
-        shield.y = avatar.right().y;
-        shield.h = 50;
-        shield.w = 45;
+        avatar.vx += 7;
     }
     avatar.vx *= .6;
     avatar.vy *= .6;
     avatar.move();
+   
 
     /*
     for (let i = 0; i < lazerAttack.length; i++) {
