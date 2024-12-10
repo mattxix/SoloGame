@@ -49,11 +49,14 @@ var wall = [];
 var lazerAttack = new GameObject();
 var lazerAttack = [];
 var health = 100;
-var backdrop = new GameObject(); //Display the Game Backdrop Animation
+var backdrop = new GameObject(); 
 var lazerIndicator = new GameObject();
 var lazerIndicator = [];
 var tinyLazerIndicator = new GameObject();
 var tinyLazerIndicator = [];
+var menuScreen = new GameObject();
+var loseScreen = new GameObject();
+var winScreen = new GameObject();
 var avatarImage = new Image();
 avatarImage.src = 'images/FireSprite.png';
 avatar.image = avatarImage;
@@ -70,8 +73,8 @@ avatar.render = function () {
      let scaledHeight = this.image.height * scale;
 
      // Calculate the offsets to center the image
-     let offsetX = (this.w - scaledWidth) - 17.5;
-     let offsetY = (this.h - scaledHeight) - 30;
+     let offsetX = (this.w - scaledWidth) - 25;
+     let offsetY = (this.h - scaledHeight) - 25;
 
      // Draw the scaled and centered image
      ctx.drawImage(
@@ -82,10 +85,316 @@ avatar.render = function () {
          scaledHeight
      )
     } 
+    //startbutton Image
+var startButtonImage = new Image();
+startButtonImage.src = `images/startbutton.png`;
+button.image = startButtonImage;
+button.render = function() {
+    // Calculate the aspect ratio of the image
+    let scaleX = this.w / this.image.width;
+    let scaleY = this.h / this.image.height;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    let scale = Math.min(scaleX, scaleY);
+
+    // Calculate the new image dimensions
+    let scaledWidth = this.image.width * scale;
+    let scaledHeight = this.image.height * scale;
+
+    // Calculate the offsets to center the image
+    let offsetX = (this.w - scaledWidth) -50;
+    let offsetY = (this.h - scaledHeight) -25;
+
+    // Draw the scaled and centered image
+    ctx.drawImage(
+        this.image,
+        this.x + offsetX,
+        this.y + offsetY,
+        scaledWidth,
+        scaledHeight
+    )
+   } 
+   //Preload Again Button
+var againButtonImage = new Image();
+againButtonImage.src = `images/againbutton.png`;
+playAgainButton.image = againButtonImage;
+playAgainButton.render = function() {
+    // Calculate the aspect ratio of the image
+    let scaleX = this.w / this.image.width;
+    let scaleY = this.h / this.image.height;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    let scale = Math.min(scaleX, scaleY);
+
+    // Calculate the new image dimensions
+    let scaledWidth = this.image.width * scale;
+    let scaledHeight = this.image.height * scale;
+
+    // Calculate the offsets to center the image
+    let offsetX = (this.w - scaledWidth) -50;
+    let offsetY = (this.h - scaledHeight) -25;
+
+    // Draw the scaled and centered image
+    ctx.drawImage(
+        this.image,
+        this.x + offsetX,
+        this.y + offsetY,
+        scaledWidth,
+        scaledHeight
+    )
+   } 
+//Preload Win Screen
+var menuScreenImage = new Image();
+menuScreenImage.src = `images/menuScreen.png`;
+menuScreen.image =menuScreenImage;
+menuScreen.render = function() {
+    // Calculate the aspect ratio of the image
+    let scaleX = this.w / this.image.width;
+    let scaleY = this.h / this.image.height;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    let scale = Math.min(scaleX, scaleY);
+
+    // Calculate the new image dimensions
+    let scaledWidth = this.image.width * scale;
+    let scaledHeight = this.image.height * scale;
+
+    // Calculate the offsets to center the image
+    let offsetX = (this.w - scaledWidth) - c.width/2;
+    let offsetY = (this.h - scaledHeight) - c.height/2 ;
+
+    // Draw the scaled and centered image
+    ctx.drawImage(
+        this.image,
+        this.x + offsetX,
+        this.y + offsetY,
+        scaledWidth,
+        scaledHeight
+    )
+   } 
+//Preload Win Screen
+var winScreenImage = new Image();
+winScreenImage.src = `images/winScreen.png`;
+winScreen.image = winScreenImage;
+winScreen.render = function() {
+    // Calculate the aspect ratio of the image
+    let scaleX = this.w / this.image.width;
+    let scaleY = this.h / this.image.height;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    let scale = Math.min(scaleX, scaleY);
+
+    // Calculate the new image dimensions
+    let scaledWidth = this.image.width * scale;
+    let scaledHeight = this.image.height * scale;
+
+    // Calculate the offsets to center the image
+    let offsetX = (this.w - scaledWidth) - c.width/2;
+    let offsetY = (this.h - scaledHeight) - c.height/2 ;
+
+    // Draw the scaled and centered image
+    ctx.drawImage(
+        this.image,
+        this.x + offsetX,
+        this.y + offsetY,
+        scaledWidth,
+        scaledHeight
+    )
+   } 
+//Preload Lose Screen
+var loseScreenImage = new Image();
+loseScreenImage.src = `images/loseScreen.png`;
+loseScreen.image = loseScreenImage;
+loseScreen.render = function() {
+    // Calculate the aspect ratio of the image
+    let scaleX = this.w / this.image.width;
+    let scaleY = this.h / this.image.height;
+
+    // Choose the smaller scaling factor to maintain aspect ratio
+    let scale = Math.min(scaleX, scaleY);
+
+    // Calculate the new image dimensions
+    let scaledWidth = this.image.width * scale;
+    let scaledHeight = this.image.height * scale;
+
+    // Calculate the offsets to center the image
+    let offsetX = (this.w - scaledWidth) - c.width/2;
+    let offsetY = (this.h - scaledHeight) - c.height/2 ;
+
+    // Draw the scaled and centered image
+    ctx.drawImage(
+        this.image,
+        this.x + offsetX,
+        this.y + offsetY,
+        scaledWidth,
+        scaledHeight
+    )
+   } 
 
 
 
 
+//Image 
+    //Image array for Normal Lazer Indicators
+    const lazerIndicatorImages = [
+        "images/waterSprite64.png",
+        "images/waterSprite64lookleft.png",
+        "images/waterSprite64lookingdown.png",
+        "images/waterSprite64lookingdown.png",
+        "images/waterSprite64lookingdown.png",
+        "images/waterSprite64.png",
+        "images/waterSprite64.png",
+        "images/waterSprite64lookleft.png",
+        "images/waterSprite64lookleft.png",
+    ].map((src) => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    });
+    //callthefunction
+    function renderLazerIndicators(ctx, elapsedTime) {
+    lazerIndicators.forEach((indicator, index) => {
+        if (elapsedTime >= index * 0.5 && elapsedTime <= index * 0.5 + 2.5) {
+            indicator.render(ctx);
+        }
+    });
+}
+     
+//sets the location and size
+const lazerIndicators = [];
+for (let i = 0; i < lazerIndicatorImages.length; i++) {
+    const indicator = new GameObject();
+    indicator.x = 100 + i * 50; // Example positions
+    indicator.y = 100;
+    indicator.w = 80;
+    indicator.h = 80;
+    indicator.image = lazerIndicatorImages[i]; // Assign preloaded image
+    lazerIndicators.push(indicator);
+}
+//end of lazer images
+
+//Small lazer image start
+    //Image array for Tiny Lazer Indicators
+    const tinyLazerIndicatorImages = [
+        "images/watergunr.png",
+        "images/watergunr.png",
+        "images/watergund.png",
+        "images/watergund.png",
+        "images/watergund.png",
+        "images/watergund.png",
+        "images/watergund.png",
+    ].map((src) => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    });
+    //callthefunction
+    function renderTinyLazerIndicators(ctx, elapsedTime) {
+    tinyLazerIndicators.forEach((indicator, index) => {
+        if (elapsedTime >= index * 0.5 && elapsedTime <= index * 0.5 + 2.5) {
+            indicator.render(ctx);
+        }
+    });
+}
+const tinyPositions = [
+    { x: c.width/2 - 300, y: c.height/2 + 175 },
+    { x: c.width/2 - 300, y: c.height/2 - 80 },
+    { x: c.width/2 - 200, y: c.height/2 - 175 },
+    { x: c.width/2 - 100, y: c.height/2 - 175 },
+    { x: c.width/2, y: c.height/2 - 175 },
+    { x: c.width/2 + 100, y: c.height/2 - 175 },
+    { x: c.width/2 + 200 , y: c.height/2 - 175 },
+];
+//sets the location and size
+const tinyLazerIndicators = [];
+for (let i = 0; i < tinyLazerIndicatorImages.length; i++) {
+    const indicator = new GameObject();
+    indicator.x = tinyPositions[i].x;
+    indicator.y = tinyPositions[i].y;
+    indicator.w = 80;
+    indicator.h = 80;
+    indicator.image = tinyLazerIndicatorImages[i]; // Assign preloaded image
+    tinyLazerIndicators.push(indicator);
+    
+//Tiny Lazer image end
+//All lazer images start
+    // Image array for Lazer Attacks
+    const lazerAttackImages = [
+    "images/waterBlast.png",
+    "images/waterBlast.png",
+    "images/waterBlast.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlastUp.png",
+    "images/waterBlast.png",
+    "images/waterBlast.png",
+].map((src) => {
+    const img = new Image();
+    img.src = src;
+    return img;
+});
+
+// Positions for Lazer Attacks
+const lazerPositions = [
+    { x: c.width/2 -250, y: c.height/2 - 115},//works 0 
+    { x: c.width/2 -250, y: c.height/2 + 135},//works 1
+    { x: c.width/2 - 250, y: c.height/2 },//Works 2
+    { x: c.width/2 - 225, y: c.height/2 - 145},//Works 3
+    { x: c.width/2 - 125, y: c.height/2 - 145},//Works 4
+    { x: c.width/2 - 25, y: c.height/2 - 145},//works 5
+    { x: c.width/2 + 75, y: c.height/2 -145},//works 6
+    { x: c.width/2 + 175, y: c.height/2 -145},
+    { x: c.width/2 -35 , y: c.height/2 -145},//Works     8
+    { x: c.width/2 - 150, y: c.height/2 -145},// works  9 left above
+    { x: c.width/2 + 100, y: c.height/2 -145},// works   10 right above 
+    { x: c.width/2 - 250, y: c.height/2 -100},//  works     11 left&right top
+    { x: c.width/2 - 250, y: c.height/2 + 100},//  works     12 left&right bottom
+
+    
+];
+// Positions for Lazer Attacks
+const lazerSizes = [
+    { h:50 , w: c.width - 600},
+    { h:50 , w: c.width - 600},
+    { h:80 , w: c.width - 600},
+    { h:c.height/2 + 50 , w: 50},
+    { h: c.height/2 + 50 , w: 50},
+    { h: c.height/2 + 50 , w: 50},
+    { h: c.height/2 + 50 , w: 50},
+    { h: c.height/2 + 50 , w: 50},
+    { h: c.height/2 + 50 , w: 80},
+    { h: c.height/2 + 50 , w: 80},
+    { h: c.height/2 + 50 , w: 80},
+    { h: 80 , w:  c.width - 600},
+    { h: 80 , w:  c.width - 600},
+];
+
+// Lazer Attacks array
+const lazerAttacks = [];
+for (let i = 0; i < lazerAttackImages.length; i++) {
+    const lazerIndicator = new GameObject();
+    lazerIndicator.x = lazerPositions[i].x; //access x and y
+    lazerIndicator.y = lazerPositions[i].y;
+    lazerIndicator.w = lazerSizes[i].w; //access w and h
+    lazerIndicator.h = lazerSizes[i].h;
+    lazerIndicator.image = lazerAttackImages[i];
+    lazerAttacks.push(lazerIndicator);
+}
+
+// Render function
+function renderLazerAttack(ctx, elapsedTime) {
+    lazerAttacks.forEach((lazerIndicator, index) => {
+        if (elapsedTime >= index * 0.5 && elapsedTime <= index * 0.5 + 2.5) {
+            lazerIndicator.render(ctx);
+        }
+    });
+}
+// Lazer Attacks image end
 
 
 //Allows me to Change when the lazer does Damage
@@ -108,13 +417,14 @@ function activateDamage() {
 function deactivateDamage() {
     isDamageActive = false;
 }
-//Lazer animation
+/*Lazer animation
 let lazerFrames = [];
 let currentFrame = 0;
 let frameDelay = 100; // Delay in milliseconds between frames
 let lastFrameTime = 0;
-
+*/
 //Preload the frames
+/*
 for (let i = 0; i < 5; i++) { // Assuming 5 frames
     let img = new Image();
     img.src = `images/lazerFrames/frame${i}.png`;
@@ -137,6 +447,7 @@ function renderlazerAttack(lazer, timestamp) {
         lazer.h
     );
 }
+    */
 
 
 
@@ -177,6 +488,23 @@ function init()
     backdrop.y = c.height/2;
     backdrop.color = `grey`
     backdrop.world = level;
+
+    //Menu Screen
+    menuScreen.w =1100
+    menuScreen.h = 619
+    menuScreen.x = c.width/2;
+    menuScreen.y = c.height/2;
+    //Lose Screen
+    loseScreen.w =1100
+    loseScreen.h = 619
+    loseScreen.x = c.width/2;
+    loseScreen.y = c.height/2;
+    //Win Screen
+    winScreen.w = 1100
+    winScreen.h = 619
+    winScreen.x = c.width/2;
+    winScreen.y = c.height/2;
+
 
 
     //top Wall
@@ -347,6 +675,7 @@ function init()
     lazerIndicator[0].x = c.width/2 - 300;
     lazerIndicator[0].y = c.height/2 + 34.5;
     lazerIndicator[0].isActive = false;
+    lazerIndicator[0].image = lazerIndicatorImages[0];
     lazerIndicator[0].world = level;
     // right side middle
     lazerIndicator[1]=new GameObject();
@@ -356,6 +685,7 @@ function init()
     lazerIndicator[1].x = c.width/2 + 300;
     lazerIndicator[1].y = c.height/2 + 34.5;
     lazerIndicator[1].isActive = false;
+    lazerIndicator[1].image = lazerIndicatorImages[1];
     lazerIndicator[1].world = level;
     // above middle
     lazerIndicator[2]=new GameObject();
@@ -365,6 +695,7 @@ function init()
     lazerIndicator[2].x = c.width/2;
     lazerIndicator[2].y = c.height/2 - 200;
     lazerIndicator[2].isActive = false;
+    lazerIndicator[2].image = lazerIndicatorImages[2];
     lazerIndicator[2].world = level;
     // above left
     lazerIndicator[3]=new GameObject();
@@ -374,6 +705,7 @@ function init()
     lazerIndicator[3].x = c.width/2 - 125;
     lazerIndicator[3].y = c.height/2 - 200;
     lazerIndicator[3].isActive = false;
+    lazerIndicator[3].image = lazerIndicatorImages[3];
     lazerIndicator[3].world = level;
     // above right
     lazerIndicator[4]=new GameObject();
@@ -383,6 +715,7 @@ function init()
     lazerIndicator[4].x = c.width/2 + 125;
     lazerIndicator[4].y = c.height/2 - 200;
     lazerIndicator[4].isActive = false;
+    lazerIndicator[4].image = lazerIndicatorImages[4];
     lazerIndicator[4].world = level;
     //left side top
     lazerIndicator[5]=new GameObject();
@@ -392,6 +725,7 @@ function init()
     lazerIndicator[5].x = c.width/2 - 300;
     lazerIndicator[5].y = c.height - 175;
     lazerIndicator[5].isActive = false;
+    lazerIndicator[5].image = lazerIndicatorImages[5];
     lazerIndicator[5].world = level;
     //left side bottom
     lazerIndicator[6]=new GameObject();
@@ -401,6 +735,7 @@ function init()
     lazerIndicator[6].x = c.width/2 - 300;
     lazerIndicator[6].y = c.height - 375;
     lazerIndicator[6].isActive = false;
+    lazerIndicator[6].image = lazerIndicatorImages[6];
     lazerIndicator[6].world = level;
     // right side bottom
     lazerIndicator[7]=new GameObject();
@@ -410,6 +745,7 @@ function init()
     lazerIndicator[7].x = c.width/2 + 300;
     lazerIndicator[7].y = c.height - 375;
     lazerIndicator[7].isActive = false;
+    lazerIndicator[7].image = lazerIndicatorImages[7];
     lazerIndicator[7].world = level;
     // right side top
     lazerIndicator[8]=new GameObject();
@@ -419,6 +755,7 @@ function init()
     lazerIndicator[8].x = c.width/2 + 300;
     lazerIndicator[8].y = c.height - 175;
     lazerIndicator[8].isActive = false;
+    lazerIndicator[8].image = lazerIndicatorImages[8];
     lazerIndicator[8].world = level;
 
     //small lazer indicators
@@ -505,43 +842,50 @@ function menu()
         startTime = Date.now(); 
         elapsedTime = 0;
     }
+    menuScreen.render();
     button.render()
+    
 }
 
 function win()
 {
     //Display Win Screen
     ctx.clearRect(0,0,c.width,c.height);
+    winScreen.render();
     ctx.font = "20px Arial";
      ctx.fillStyle = "black";
      ctx.textAlign = "center";
      ctx.textBaseline = "center";
-     ctx.fillText("You Survived!", c.width/2, c.height/2 - 50);
-     ctx.fillText("That was a close one!", c.width/2 , c.height/2 -100); 
+     ctx.fillText("Remaining Health: " + health, c.width/2 , c.height/2 + 100); 
+
      //try again button
      if(clicked(playAgainButton))
         {
             state = game;
             init();
         }
-            playAgainButton.render();
+        
+    playAgainButton.render();
 }
 function lose()
 {
     //display lose screen
     ctx.clearRect(0,0,c.width,c.height);
+    loseScreen.render();
     ctx.font = "20px Arial";
      ctx.fillStyle = "black";
      ctx.textAlign = "center";
      ctx.textBaseline = "center";
      ctx.fillText("Time Survived: " + roundedTime, c.width/2, c.height/2 - 50);
-     ctx.fillText("You Died", c.width/2 , c.height/2 -100); 
+     
+     
      //try again button
      if(clicked(playAgainButton))
         {
             state = game;
             init();
         }
+            
             playAgainButton.render();
 }
 
@@ -654,37 +998,38 @@ function game(timestamp)
     */
     
     if (elapsedTime >= 0.01 && elapsedTime <= 2.5) {
-        lazerIndicator[0].render();
+        ctx.drawImage(lazerIndicatorImages[0], lazerIndicator[0].x -40 , lazerIndicator[0].y - 50, 80, 80);
+        
         
     } 
     if (elapsedTime >= 1.5 && elapsedTime <= 2.5) {
-        lazerAttack[2].render();
-        
+        //lazerAttack[2].render();
+        //const lazerIndicator2 = lazerAttacks[2];
+        ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
         // Check for collision
         if (lazerAttack[2].overlaps(avatar)) {
-            
             health -=3 // Damage the player if they touch the lazer
         }
     } 
 
 
     if (elapsedTime >= 2.5 && elapsedTime <= 4.75) {
-        tinyLazerIndicator[0].render();
-        tinyLazerIndicator[1].render();
-        
+        const indicator0 = tinyLazerIndicators[0];
+        const indicator1 = tinyLazerIndicators[1];
+        ctx.drawImage(indicator0.image, indicator0.x - 40, indicator0.y - 50, indicator0.w, indicator0.h);
+        ctx.drawImage(indicator1.image, indicator1.x - 40, indicator1.y - 50, indicator1.w, indicator1.h);
     } 
     if (elapsedTime >= 3.75 && elapsedTime <= 4.75) {
-        lazerAttack[0].render();
-    
+        //lazerAttack[0].render();
+        ctx.drawImage(lazerAttacks[0].image, lazerAttacks[0].x , lazerAttacks[0].y , lazerAttacks[0].w, lazerAttacks[0].h);
         // Check for collision
-        if (lazerAttack[0].overlaps(avatar)) {
-            
+        if (lazerAttack[0].overlaps(avatar)) {   
             health -=3 // Damage the player if they touch the lazer
         }
     } 
     if (elapsedTime >= 3.75 && elapsedTime <= 4.75) {
-        lazerAttack[1].render();
-    
+        //lazerAttack[1].render();
+        ctx.drawImage(lazerAttacks[1].image, lazerAttacks[1].x , lazerAttacks[1].y , lazerAttacks[1].w, lazerAttacks[1].h);
         // Check for collision
         if (lazerAttack[1].overlaps(avatar)) {
             
@@ -693,9 +1038,10 @@ function game(timestamp)
     } 
     //Large Left
     if (elapsedTime >= 5 && elapsedTime <= 7.5) {
-        lazerIndicator[1].render();
+        ctx.drawImage(lazerIndicatorImages[1], lazerIndicator[1].x -40 , lazerIndicator[1].y - 50, 80, 80);
         if (elapsedTime >= 6 && elapsedTime <= 7.5) {
-            lazerAttack[2].render();
+            //lazerAttack[2].render();
+            ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
             if (lazerAttack[2].overlaps(avatar)) {
                 health -=3 
             }
@@ -703,143 +1049,176 @@ function game(timestamp)
     } 
     
     if (elapsedTime >= 5.25 && elapsedTime <= 6.75) {
-        tinyLazerIndicator[2].render();
+        const indicator2 = tinyLazerIndicators[2];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
         if(elapsedTime >= 5.75 && elapsedTime <= 6.75){
-            lazerAttack[3].render();
+            //lazerAttack[3].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
             if (lazerAttack[3].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 5.5 && elapsedTime <= 7) {
-        tinyLazerIndicator[3].render();
+        const indicator3 = tinyLazerIndicators[3];
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
         if(elapsedTime >= 6 && elapsedTime <= 7){
-            lazerAttack[4].render();
+            //lazerAttack[4].render();
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
             if (lazerAttack[4].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 5.75 && elapsedTime <= 7.25) {
-        tinyLazerIndicator[4].render();
+        const indicator4 = tinyLazerIndicators[4];
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
         if(elapsedTime >= 6.25 && elapsedTime <= 7.25){
-            lazerAttack[5].render();
+            //lazerAttack[5].render();
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
             if (lazerAttack[5].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 6 && elapsedTime <= 7.75) {
-        tinyLazerIndicator[5].render();
+        const indicator5 = tinyLazerIndicators[5];
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
         if(elapsedTime >= 6.5 && elapsedTime <= 7.75){
-            lazerAttack[6].render();
+            //lazerAttack[6].render();
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
             if (lazerAttack[6].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 7.5 && elapsedTime <= 8.75) {
-        tinyLazerIndicator[1].render();
-        tinyLazerIndicator[0].render();
+        const indicator0 = tinyLazerIndicators[0];
+        const indicator1 = tinyLazerIndicators[1];
+        ctx.drawImage(indicator0.image, indicator0.x - 40, indicator0.y - 50, indicator0.w, indicator0.h);
+        ctx.drawImage(indicator1.image, indicator1.x - 40, indicator1.y - 50, indicator1.w, indicator1.h);
         if(elapsedTime >= 8 && elapsedTime <= 8.75){
-            lazerAttack[1].render();
-            lazerAttack[0].render();
+            //lazerAttack[1].render();
+            //lazerAttack[0].render();
+            ctx.drawImage(lazerAttacks[0].image, lazerAttacks[0].x , lazerAttacks[0].y , lazerAttacks[0].w, lazerAttacks[0].h);
+            ctx.drawImage(lazerAttacks[1].image, lazerAttacks[1].x , lazerAttacks[1].y , lazerAttacks[1].w, lazerAttacks[1].h);
             if (lazerAttack[1].overlaps(avatar) || lazerAttack[0].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 8.5 && elapsedTime <= 10.5) {
-        lazerIndicator[2].render();
-        lazerIndicator[1].render();
-        lazerIndicator[0].render();
+        ctx.drawImage(lazerIndicatorImages[0], lazerIndicator[0].x -40 , lazerIndicator[0].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[1], lazerIndicator[1].x -40 , lazerIndicator[1].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[2], lazerIndicator[2].x -40 , lazerIndicator[2].y - 50, 80, 80);
         if(elapsedTime >= 9.25 && elapsedTime <= 10.5){
-            lazerAttack[8].render();
-            lazerAttack[2].render();
+            //lazerAttack[8].render();
+            //lazerAttack[2].render();
+            ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
+            ctx.drawImage(lazerAttacks[8].image, lazerAttacks[8].x , lazerAttacks[8].y , lazerAttacks[8].w, lazerAttacks[8].h);
             if (lazerAttack[8].overlaps(avatar) || lazerAttack[2].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 10.75 && elapsedTime <= 12.75) {
-        lazerIndicator[3].render();
-        lazerIndicator[4].render();
-        lazerIndicator[5].render();
-        lazerIndicator[6].render();
-        lazerIndicator[7].render();
-        lazerIndicator[8].render();
+        ctx.drawImage(lazerIndicatorImages[3], lazerIndicator[3].x -40 , lazerIndicator[3].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[4], lazerIndicator[4].x -40 , lazerIndicator[4].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[5], lazerIndicator[5].x -40 , lazerIndicator[5].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[6], lazerIndicator[6].x -40 , lazerIndicator[6].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[7], lazerIndicator[7].x -40 , lazerIndicator[7].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[8], lazerIndicator[8].x -40 , lazerIndicator[8].y - 50, 80, 80);
         if(elapsedTime >= 11.5 && elapsedTime <= 12.75){
-            lazerAttack[9].render();
-            lazerAttack[10].render();
-            lazerAttack[11].render();
-            lazerAttack[12].render();
+            //lazerAttack[9].render();
+            //lazerAttack[10].render();
+            //lazerAttack[11].render();
+            //lazerAttack[12].render();
+            ctx.drawImage(lazerAttacks[9].image, lazerAttacks[9].x , lazerAttacks[9].y , lazerAttacks[9].w, lazerAttacks[9].h);
+            ctx.drawImage(lazerAttacks[10].image, lazerAttacks[10].x , lazerAttacks[10].y , lazerAttacks[10].w, lazerAttacks[10].h);
+            ctx.drawImage(lazerAttacks[11].image, lazerAttacks[11].x , lazerAttacks[11].y , lazerAttacks[11].w, lazerAttacks[11].h);
+            ctx.drawImage(lazerAttacks[12].image, lazerAttacks[12].x , lazerAttacks[12].y , lazerAttacks[12].w, lazerAttacks[12].h);
             if (lazerAttack[9].overlaps(avatar) || lazerAttack[10].overlaps(avatar) || lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) ) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 13 && elapsedTime <= 14.25) {
-        lazerIndicator[2].render();
-        lazerIndicator[1].render();
-        lazerIndicator[0].render();
+        ctx.drawImage(lazerIndicatorImages[2], lazerIndicator[2].x -40 , lazerIndicator[2].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[1], lazerIndicator[1].x -40 , lazerIndicator[1].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[0], lazerIndicator[0].x -40 , lazerIndicator[0].y - 50, 80, 80);
         if(elapsedTime >= 13.5 && elapsedTime <= 14.25){
-            lazerAttack[8].render();
-            lazerAttack[2].render();
+            //lazerAttack[8].render();
+            //lazerAttack[2].render();
+            ctx.drawImage(lazerAttacks[8].image, lazerAttacks[8].x , lazerAttacks[8].y , lazerAttacks[8].w, lazerAttacks[8].h);
+            ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
             if (lazerAttack[8].overlaps(avatar) || lazerAttack[2].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 14.5 && elapsedTime <= 15.75) {
-        lazerIndicator[3].render();
-        lazerIndicator[4].render();
-        lazerIndicator[5].render();
-        lazerIndicator[6].render();
-        lazerIndicator[7].render();
-        lazerIndicator[8].render();
+        ctx.drawImage(lazerIndicatorImages[3], lazerIndicator[3].x -40 , lazerIndicator[3].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[4], lazerIndicator[4].x -40 , lazerIndicator[4].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[5], lazerIndicator[5].x -40 , lazerIndicator[5].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[6], lazerIndicator[6].x -40 , lazerIndicator[6].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[7], lazerIndicator[7].x -40 , lazerIndicator[7].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[8], lazerIndicator[8].x -40 , lazerIndicator[8].y - 50, 80, 80);
         if(elapsedTime >= 15 && elapsedTime <= 15.75){
-            lazerAttack[9].render();
-            lazerAttack[10].render();
-            lazerAttack[11].render();
-            lazerAttack[12].render();
+            //lazerAttack[9].render();
+            //lazerAttack[10].render();
+            //lazerAttack[11].render();
+            //lazerAttack[12].render();
+            ctx.drawImage(lazerAttacks[9].image, lazerAttacks[9].x , lazerAttacks[9].y , lazerAttacks[9].w, lazerAttacks[9].h);
+            ctx.drawImage(lazerAttacks[10].image, lazerAttacks[10].x , lazerAttacks[10].y , lazerAttacks[10].w, lazerAttacks[10].h);
+            ctx.drawImage(lazerAttacks[11].image, lazerAttacks[11].x , lazerAttacks[11].y , lazerAttacks[11].w, lazerAttacks[11].h);
+            ctx.drawImage(lazerAttacks[12].image, lazerAttacks[12].x , lazerAttacks[12].y , lazerAttacks[12].w, lazerAttacks[12].h);
             if (lazerAttack[9].overlaps(avatar) || lazerAttack[10].overlaps(avatar) || lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) ) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 17 && elapsedTime <= 18) {
-        lazerIndicator[0].render();
-        lazerIndicator[1].render();
+        ctx.drawImage(lazerIndicatorImages[0], lazerIndicator[0].x -40 , lazerIndicator[0].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[1], lazerIndicator[1].x -40 , lazerIndicator[1].y - 50, 80, 80);
         if(elapsedTime >= 17.25 && elapsedTime <= 18){
-            lazerAttack[2].render();
-            
+            //lazerAttack[2].render();
+            ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
             if (lazerAttack[2].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if (elapsedTime >= 18.5 && elapsedTime <= 19.5) {
-        lazerIndicator[7].render();
-        lazerIndicator[5].render();
+        ctx.drawImage(lazerIndicatorImages[7], lazerIndicator[7].x -40 , lazerIndicator[7].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[5], lazerIndicator[5].x -40 , lazerIndicator[5].y - 50, 80, 80);
         if(elapsedTime >= 18.75 && elapsedTime <= 19.5){
-            lazerAttack[12].render();
-            lazerAttack[11].render();
-            
+            //lazerAttack[12].render();
+            //lazerAttack[11].render();
+            ctx.drawImage(lazerAttacks[11].image, lazerAttacks[11].x , lazerAttacks[11].y , lazerAttacks[11].w, lazerAttacks[11].h);
+            ctx.drawImage(lazerAttacks[12].image, lazerAttacks[12].x , lazerAttacks[12].y , lazerAttacks[12].w, lazerAttacks[12].h);
             if (lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar)) {
                 health -=3 
             }
         }
     } 
     if(elapsedTime >= 19.5 && elapsedTime <= 20.80){
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 20.20 && elapsedTime <= 20.80){
-            lazerAttack[3].render();
-            lazerAttack[4].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[3].render();
+            //lazerAttack[4].render();
+            //lazerAttack[6].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -847,15 +1226,23 @@ function game(timestamp)
     }
     //top left missing
     if(elapsedTime >= 20.80 && elapsedTime <= 22.10){
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[4].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator4 = tinyLazerIndicators[4];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 21.50 && elapsedTime <= 22.10){
-            lazerAttack[4].render();
-            lazerAttack[5].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[4].render();
+            //lazerAttack[5].render();
+            //lazerAttack[6].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -863,15 +1250,23 @@ function game(timestamp)
     }
     //top 2nd to left missing
     if(elapsedTime >= 22.10 && elapsedTime <= 23.40){
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[4].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator4 = tinyLazerIndicators[4];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 22.80 && elapsedTime <= 23.40){
-            lazerAttack[3].render();
-            lazerAttack[5].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[3].render();
+            //lazerAttack[5].render();
+            //lazerAttack[6].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -879,15 +1274,23 @@ function game(timestamp)
     }
     //middle top missing
     if(elapsedTime >= 23.40 && elapsedTime <= 24.70){
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 24.10 && elapsedTime <= 24.70){
-            lazerAttack[3].render();
-            lazerAttack[4].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[3].render();
+            //lazerAttack[4].render();
+            //lazerAttack[6].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -895,15 +1298,23 @@ function game(timestamp)
     }
     //4th top missing
     if(elapsedTime >= 24.70 && elapsedTime <= 26){
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[4].render();
-        tinyLazerIndicator[6].render();
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator4 = tinyLazerIndicators[4];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 25.40 && elapsedTime <= 26){
-            lazerAttack[3].render();
-            lazerAttack[4].render();
-            lazerAttack[5].render();
-            lazerAttack[7].render();
+            //lazerAttack[3].render();
+            //lazerAttack[4].render();
+            //lazerAttack[5].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -911,15 +1322,23 @@ function game(timestamp)
     }
     //top left missing again
     if(elapsedTime >= 26 && elapsedTime <= 27.3){
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[4].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator4 = tinyLazerIndicators[4];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 26.70 && elapsedTime <= 27.3){
-            lazerAttack[4].render();
-            lazerAttack[5].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[4].render();
+           // lazerAttack[5].render();
+            //lazerAttack[6].render();
+            ///lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar) || lazerAttack[7].overlaps(avatar)) {
                 health -=3 
             }
@@ -927,15 +1346,23 @@ function game(timestamp)
     }
     //top right missing 
     if(elapsedTime >= 27.3 && elapsedTime <= 28.6){
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[4].render();
-        tinyLazerIndicator[5].render();
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator4 = tinyLazerIndicators[4];
+        const indicator5 = tinyLazerIndicators[5];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
         if(elapsedTime >= 28 && elapsedTime <= 28.6){
-            lazerAttack[3].render();
-            lazerAttack[4].render();
-            lazerAttack[5].render();
-            lazerAttack[6].render();
+            //lazerAttack[3].render();
+            //lazerAttack[4].render();
+            //lazerAttack[5].render();
+            //lazerAttack[6].render();
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
             if (lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[5].overlaps(avatar) || lazerAttack[6].overlaps(avatar)) {
                 health -=3 
             }
@@ -943,15 +1370,19 @@ function game(timestamp)
     }
     //top tiny middle, Large left and right top and bottoms
     if(elapsedTime >= 28.6 && elapsedTime <= 30.25){
-        lazerIndicator[5].render();
-        lazerIndicator[6].render();
-        tinyLazerIndicator[4].render();
-        lazerIndicator[7].render();
-        lazerIndicator[8].render();
+        const indicator4 = tinyLazerIndicators[4];
+        ctx.drawImage(indicator4.image, indicator4.x - 40, indicator4.y - 50, indicator4.w, indicator4.h);
+        ctx.drawImage(lazerIndicatorImages[5], lazerIndicator[5].x -40 , lazerIndicator[5].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[6], lazerIndicator[6].x -40 , lazerIndicator[6].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[7], lazerIndicator[7].x -40 , lazerIndicator[7].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[8], lazerIndicator[8].x -40 , lazerIndicator[8].y - 50, 80, 80);
         if(elapsedTime >= 29.3 && elapsedTime <= 30.25){
-            lazerAttack[11].render();
-            lazerAttack[12].render();
-            lazerAttack[5].render();
+            //lazerAttack[11].render();
+            //lazerAttack[12].render();
+            //lazerAttack[5].render();
+            ctx.drawImage(lazerAttacks[5].image, lazerAttacks[5].x , lazerAttacks[5].y , lazerAttacks[5].w, lazerAttacks[5].h);
+            ctx.drawImage(lazerAttacks[11].image, lazerAttacks[11].x , lazerAttacks[11].y , lazerAttacks[11].w, lazerAttacks[11].h);
+            ctx.drawImage(lazerAttacks[12].image, lazerAttacks[12].x , lazerAttacks[12].y , lazerAttacks[12].w, lazerAttacks[12].h);
             if (lazerAttack[11].overlaps(avatar) || lazerAttack[12].overlaps(avatar) || lazerAttack[5].overlaps(avatar) ) {
                 health -=3 
             }
@@ -959,30 +1390,43 @@ function game(timestamp)
     }
     //all top tiny missing middle, Large middle
     if(elapsedTime >= 30.25 && elapsedTime <= 31.90){
-        lazerIndicator[1].render();
-        lazerIndicator[0].render();
-        tinyLazerIndicator[2].render();
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[5].render();
-        tinyLazerIndicator[6].render();
+        ctx.drawImage(lazerIndicatorImages[0], lazerIndicator[0].x -40 , lazerIndicator[0].y - 50, 80, 80);
+        ctx.drawImage(lazerIndicatorImages[1], lazerIndicator[1].x -40 , lazerIndicator[1].y - 50, 80, 80);
+        const indicator2 = tinyLazerIndicators[2];
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator5 = tinyLazerIndicators[5];
+        const indicator6 = tinyLazerIndicators[6];
+        ctx.drawImage(indicator2.image, indicator2.x - 40, indicator2.y - 50, indicator2.w, indicator2.h);
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
+        ctx.drawImage(indicator6.image, indicator6.x - 40, indicator6.y - 50, indicator6.w, indicator6.h);
         if(elapsedTime >= 30.95 && elapsedTime <= 31.90){
-            lazerAttack[2].render();
-            lazerAttack[3].render();
-            lazerAttack[4].render();
-            lazerAttack[6].render();
-            lazerAttack[7].render();
+            //lazerAttack[2].render();
+            //lazerAttack[3].render();    
+            //lazerAttack[4].render();
+            //lazerAttack[6].render();
+            //lazerAttack[7].render();
+            ctx.drawImage(lazerAttacks[2].image, lazerAttacks[2].x , lazerAttacks[2].y , lazerAttacks[2].w, lazerAttacks[2].h);
+            ctx.drawImage(lazerAttacks[3].image, lazerAttacks[3].x , lazerAttacks[3].y , lazerAttacks[3].w, lazerAttacks[3].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[7].image, lazerAttacks[7].x , lazerAttacks[7].y , lazerAttacks[7].w, lazerAttacks[7].h);
             if (lazerAttack[2].overlaps(avatar) || lazerAttack[3].overlaps(avatar) || lazerAttack[4].overlaps(avatar) || lazerAttack[6].overlaps(avatar)|| lazerAttack[7].overlaps(avatar) ) {
                 health -=3 
             }
         }
     }
     //2nd and 3rd tiny above
-    if(elapsedTime >= 32 && elapsedTime <= 35){
-        tinyLazerIndicator[3].render();
-        tinyLazerIndicator[5].render();
+    if (elapsedTime >= 32 && elapsedTime <= 35) {
+        const indicator3 = tinyLazerIndicators[3];
+        const indicator5 = tinyLazerIndicators[5];
+        ctx.drawImage(indicator3.image, indicator3.x - 40, indicator3.y - 50, indicator3.w, indicator3.h);
+        ctx.drawImage(indicator5.image, indicator5.x - 40, indicator5.y - 50, indicator5.w, indicator5.h);
         if(elapsedTime >= 32.5 && elapsedTime <= 35){
-            lazerAttack[4].render();
-            lazerAttack[6].render();
+            //lazerAttack[4].render();
+            //lazerAttack[6].render();
+            ctx.drawImage(lazerAttacks[4].image, lazerAttacks[4].x , lazerAttacks[4].y , lazerAttacks[4].w, lazerAttacks[4].h);
+            ctx.drawImage(lazerAttacks[6].image, lazerAttacks[6].x , lazerAttacks[6].y , lazerAttacks[6].w, lazerAttacks[6].h);
             if (lazerAttack[6].overlaps(avatar) || lazerAttack[4].overlaps(avatar) ) {
                 health -=3 
             }
@@ -990,9 +1434,10 @@ function game(timestamp)
     }
     //large middle above
     if(elapsedTime >= 32.75 && elapsedTime <= 35){
-        lazerIndicator[2].render();
+        ctx.drawImage(lazerIndicatorImages[2], lazerIndicator[2].x -40 , lazerIndicator[2].y - 50, 80, 80);
         if(elapsedTime >= 33.5 && elapsedTime <= 35){
-            lazerAttack[8].render();
+            //lazerAttack[8].render();
+            ctx.drawImage(lazerAttacks[8].image, lazerAttacks[8].x , lazerAttacks[8].y , lazerAttacks[8].w, lazerAttacks[8].h);
             if (lazerAttack[8].overlaps(avatar)) {
                 health -=3 
             }
@@ -1053,6 +1498,9 @@ function game(timestamp)
    
       shield.render();
     avatar.render();
+    //drawLazerIndicators(ctx, lazerIndicator);
+    
+   
     
     
     
@@ -1060,3 +1508,4 @@ function game(timestamp)
 
 
 
+}
